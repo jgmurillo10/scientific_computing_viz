@@ -59,7 +59,7 @@ streamline.SetSourceConnection(plane.GetOutputPort())
 streamline.SetInputConnection(reader.GetOutputPort())
 # Try different integration alternatives! See the documentation of vtkStreamTracer
 streamline.SetIntegrationDirectionToForward()
-streamline.SetMaximumPropagation(1)
+streamline.SetMaximumPropagation(5)# reader.GetDimensions(y)
 streamline.SetComputeVorticity(True)
 
 # Pass the streamlines to the mapper
