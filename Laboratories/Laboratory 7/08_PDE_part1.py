@@ -7,6 +7,7 @@ Created on Thu Jun 22 16:35:29 2017
 """
 
 import numpy as np
+import math
 import matplotlib.pyplot as plt
 from matplotlib import animation, rc
 
@@ -53,7 +54,8 @@ def step_wave(t):
 
         # set initial condition
         for i in range(0,nx):
-            u[t,i] = init_wave( xmin + i*dx )
+            u[t,i] = 0
+            #u[t,i] = init_wave( xmin + i*dx )
 
     else:
         # compute second x-derivative using central differences
@@ -63,7 +65,7 @@ def step_wave(t):
         u[t,1:nx-1] = 2*u[t-1,1:nx-1] - u[t-2,1:nx-1] + (c*dt)**2 * ddx
 
         # apply boundary conditions
-        u[t,0]    = 0
+        u[t,0]    = np.sin(2*t*dt*math.pi)
         u[t,nx-1] = 0
 
     l.set_data(np.linspace(xmin,xmax,nx), u[t,:])
@@ -77,7 +79,8 @@ def step_heat(t):
 
         print( 'stability:', k*dt/(dx**2) )
         for i in range(0,nx):
-            u[t,i] = init_wave( xmin + i*dx )
+            u[t,i] = 0
+            #u[t,i] = init_wave( xmin + i*dx )
 
     else:
 
@@ -88,7 +91,7 @@ def step_heat(t):
         u[t,1:nx-1] = u[t-1,1:nx-1] + k * dt * ddx
 
         # apply boundary conditions
-        u[t,0]    = np.sin(t)
+        u[t,0]    = np.sin(2*t*dt*math.pi)
         u[t,nx-1] = 0
 
     l.set_data(np.linspace(xmin,xmax,nx), u[t,:])
@@ -100,5 +103,5 @@ plt.xlim(xmin, xmax)
 plt.ylim(-1.5, 1.5)
 plt.xlabel('u')
 
-line_ani = animation.FuncAnimation(fig1, step_heat, nt-1, interval=5, repeat=False, blit=True)
+line_ani = animation.FuncAnimation(fig1, step_wave, nt-1, interval=5, repeat=False, blit=True)
 plt.show()
