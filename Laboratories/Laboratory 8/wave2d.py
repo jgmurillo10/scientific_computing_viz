@@ -22,7 +22,7 @@ dx   = 0.1    # space increment (default 0.1)
 nx = int((xmax-xmin)/dx) # number of points on xy grid
 
 # compute timestep such that the scheme is stable
-dt = dx/(1.415*c)
+dt =  dx/(1.415*c)
 
 # set initial condition
 x = np.linspace( xmin, xmax, nx )
